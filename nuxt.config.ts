@@ -4,4 +4,8 @@ export default defineNuxtConfig({
   modules: [
     '@element-plus/nuxt',
   ],
+  target: 'static',
+  router: {
+    base: '/IoT_2023_HuaWei/'
+  },
 })
