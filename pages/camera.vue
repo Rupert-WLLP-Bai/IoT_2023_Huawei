@@ -10,8 +10,8 @@
         <div>
             <h1>录制计时器</h1>
             <p>录制时间：{{ time }}秒</p>
-            <el-button @click="startRecord">开始录制</el-button>
-            <el-button @click="stopRecord">停止录制</el-button>
+            <el-button :disabled="recording" @click="startRecord">开始录制</el-button>
+            <el-button :disabled="!recording" @click="stopRecord">停止录制</el-button>
             <el-button @click="playRecord">播放录制</el-button>
             <el-button @click="clearRecord">清除录制</el-button>
             <el-button @click="downloadRecord">下载录制</el-button>
@@ -44,28 +44,32 @@ onMounted(() => {
 })
 
 // 录制视频
-const time = ref(0) // 录制时间
+let startTime = 0   // 开始录制的时间
+let time = ref(0)   // 录制的时间
 const recorder = ref(null) // 录制器
 const chunks = ref([]) // 录制的视频块
+let recording = ref(false)  // 是否正在录制
 
 // 开始录制并且开始计时
 const startRecord = () => {
     const video = document.getElementById('video')
     recorder.value = new MediaRecorder(video.srcObject)
+    startTime = Date.now()  // 开始录制的时间
+    recording.value = true  // 正在录制
     recorder.value.start()
     recorder.value.ondataavailable = (e) => {
         chunks.value.push(e.data)
     }
-    time.value = 0
-    // 每隔1毫秒计时器加0.001
+    // 每0.01秒更新一次录制时间
     interval = setInterval(() => {
-        time.value += 0.001
-    }, 1)
+        time.value = ((Date.now() - startTime) / 1000).toFixed(2)
+    }, 10)
 }
 
 // 停止录制并且停止计时
 const stopRecord = () => {
     recorder.value.stop()
+    recording.value = false
     recorder.value.onstop = (e) => {
         const blob = new Blob(chunks.value, { type: 'video/mp4' })
         chunks.value = []

@@ -19,4 +19,14 @@
     justify-content: center;
     align-items: center;
 }
+
+/* 设置background下的h1 为渐变色 */
+.background h1 {
+    background: linear-gradient(to right, #5f68ece1, #f503c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
+    font-weight: 900;
+    text-align: center;
+}
 </style>

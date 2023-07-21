@@ -2,10 +2,10 @@
     <div>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item index="1"> <nuxt-link to="/">首页</nuxt-link></el-menu-item>
-            <el-menu-item index="2"> <nuxt-link to="/video">视频</nuxt-link></el-menu-item>
-            <el-menu-item index="3"> <nuxt-link to="/home">传感器</nuxt-link></el-menu-item>
+            <el-menu-item index="2"> <nuxt-link to="/camera">摄像头测试</nuxt-link></el-menu-item>
+            <el-menu-item index="3"> <nuxt-link to="/sensor">传感器</nuxt-link></el-menu-item>
             <el-menu-item index="4"> <nuxt-link to="/about">关于</nuxt-link></el-menu-item>
-            <el-menu-item index="5"> <nuxt-link to="/rtmp">rtmp测试</nuxt-link></el-menu-item>
+            <el-menu-item index="5"> <nuxt-link to="/flv">flv拉流测试</nuxt-link></el-menu-item>
         </el-menu>
     </div>
 </template>
@@ -20,15 +20,23 @@ const handleSelect = (index) => {
     switch (index) {
         case '1':
             router.push({ path: '/' })
+            activeIndex.value = '1'
             break
         case '2':
-            router.push({ path: '/video' })
+            router.push({ path: '/camera' })
+            activeIndex.value = '2'
             break
         case '3':
-            router.push({ path: '/home' })
+            router.push({ path: '/sensor' })
+            activeIndex.value = '3'
             break
         case '4':
             router.push({ path: '/about' })
+            activeIndex.value = '4'
+            break
+        case '5':
+            router.push({ path: '/flv' })
+            activeIndex.value = '5'
             break
     }
 }
