@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <!-- 居中显示大标题 -->
     <div style="text-align: center;">
         <h1>传感器数据</h1>
@@ -89,7 +88,7 @@ const getShadowData = async () => {
     ]
 }
 // 每1秒刷新一次Shadow数据
-setInterval(() => {
+let interval = setInterval(() => {
     getShadowData()
 }, 1000)
 
@@ -120,4 +119,19 @@ const sendInstruction = () => {
 
 }
 
+
+onMounted(() => {
+    getShadowData()
+})
+
+onUnmounted(() => {
+    clearInterval(interval)
+})
 </script>
+
+<style>
+.instruction_div {
+    text-align: center;
+    margin-top: 20px;
+}
+</style>

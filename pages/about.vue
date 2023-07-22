@@ -1,17 +1,53 @@
 <template>
-    <NavBar />
     <div>
         <h1>关于</h1>
-        <a href="https://github.com/Rupert-WLLP-Bai/IoT_2023_Huawei" target="_blank">GitHub</a>
-        <!-- 加入一个GitHub图标 -->
-        <!-- 标记上面的链接-->
-        <div>
-            <h1>标记</h1>
-            <el-tag>标记一</el-tag>
-            <el-tag type="success">标记二</el-tag>
-            <el-tag type="info">标记三</el-tag>
-            <el-tag type="warning">标记四</el-tag>
-            <el-tag type="danger">标记五</el-tag>
-        </div> 
+        <p>本项目是2023年全国大学生物联网大赛华为云赛道的参赛作品</p>
+        <!-- GitHub Website Icon -->
+        链接地址: <a href="https://github.com/Rupert-WLLP-Bai/IoT_2023_Huawei" target="_blank">GitHub Repo</a>
+    </div>
+
+    <div>
+        <!-- 展示作者信息 -->
+        <h1>作者信息</h1>
+        <div style="width: 50%;">
+            <el-row>
+                <el-col :span="12">
+                    <el-card>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <h3>白俊豪</h3>
+                            <p>同济大学</p>
+                            <p>2020级本科生</p>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="12">
+                    <el-card>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <h3>杨文杰</h3>
+                            <p>同济大学</p>
+                            <p>2020级本科生</p>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="12">
+                    <el-card>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <h3>陈小天</h3>
+                            <p>同济大学</p>
+                            <p>2020级本科生</p>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="12">
+                    <el-card>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <h3>彭俊翔</h3>
+                            <p>同济大学</p>
+                            <p>2020级本科生</p>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 </template>

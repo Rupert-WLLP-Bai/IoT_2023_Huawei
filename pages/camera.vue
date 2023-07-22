@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <div>
         <!-- 从摄像头获取视频-->
         <h1>摄像头</h1>
@@ -102,5 +101,9 @@ const clearRecord = () => {
     const player = document.getElementById('player')
     player.src = ''
 }
+
+onUnmounted(() => {
+    clearInterval(interval)
+})
 
 </script>

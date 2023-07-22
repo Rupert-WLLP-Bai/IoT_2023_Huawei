@@ -1,32 +1,117 @@
 <template>
-    <NavBar />
-    <div class="background">
-        <h1>
-            这是一个基于Vue3和Element-Plus的传感器数据可视化系统
-        </h1>
-    </div>
+    <el-container>
+
+        <el-header>
+            <h1 class="animate__animated animate__fadeIn">石油电缆防偷盗系统</h1>
+        </el-header>
+
+        <el-main>
+
+            <el-row :gutter="20">
+
+                <el-col :span="12">
+
+                    <el-card class="box animate__animated animate__fadeInUp">
+                        <div class="card-header">
+                            <h2>系统介绍</h2>
+                        </div>
+
+                        <div class="card-body">
+                            <p>本系统是一个石油电缆防偷盗检测系统。通过加速度传感器和视频监测进行防盗检测,使用华为云IoT平台进行数据传输和设备管理。</p>
+                        </div>
+
+                    </el-card>
+
+                </el-col>
+
+                <el-col :span="12">
+
+                    <el-card class="box animate__animated animate__fadeInUp">
+                        <div class="card-header">
+                            <h3>关键技术</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <p>前端:Nuxt3、Element Plus</p>
+                            <p>视频处理:mpegts.js</p>
+                            <p>开发板:BearPi Nano</p>
+                            <p>云服务:华为云IoTDA</p>
+                        </div>
+
+                    </el-card>
+
+                </el-col>
+
+            </el-row>
+
+            <el-row :gutter="20" class="services">
+
+                <el-col :span="8">
+                    <el-card class="card animate__animated animate__zoomIn">
+                        <div class="card-header">
+                            <h3>加速度检测</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <p>采集电缆加速度数据,判断是否发生异常。</p>
+                        </div>
+                    </el-card>
+                </el-col>
+
+                <el-col :span="8">
+                    <el-card class="card animate__animated animate__zoomIn">
+                        <div class="card-header">
+                            <h3>视频监测</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <p>摄像头实时监测电缆周围情况,识别异常行为。</p>
+                        </div>
+                    </el-card>
+                </el-col>
+
+                <el-col :span="8">
+                    <el-card class="card animate__animated animate__zoomIn">
+                        <div class="card-header">
+                            <h3>云平台传输</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <p>通过华为云IoT平台可视化监测数据和设备状态。</p>
+                        </div>
+                    </el-card>
+                </el-col>
+
+            </el-row>
+
+        </el-main>
+
+    </el-container>
 </template>
 
 <style>
-/* 设置背景 */
-.background {
-    background-image: url('https://pic1.zhimg.com/v2-b7df35f5df14059bbcce379a7d2bc494_1440w.jpg?source=172ae18b://images.uhttps://www.google.com/url?sa=i&url=https%3A%2F%2Fhdqwalls.com%2Fvue-js-wallpaper&psig=AOvVaw3RlW_aKsh3OW8XveRaFt9P&ust=1690017668400000&source=images&cd=vfe&opi=https://www.google.com/url?sa=i&url=https%3A%2F%2Fcoreui.io%2Fvue%2F&psig=AOvVaw3RlW_aKsh3OW8XveRaFt9P&ust=1690017668400000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJiLgsm8n4ADFQAAAAAdAAAAABAI&ved=0CBEQjRxqFwoTCJiLgsm8n4ADFQAAAAAdAAAAABAEnsplash.cohttps://store-images.s-microsoft.com/image/apps.2366.9007199266518672.0607cbef-4e96-49c1-b02c-2432d9fc4826.e2043c6d-d6c4-49ed-8199-cc06665e9e9fm/photo-1621574539437-4b7b0b0b0b0b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2Vuc29yJTIwY29sb3JmdWwlMjBzdGF0ZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.el-header {
+    background: linear-gradient(to right, #5da9e9, #409EFF);
 }
 
-/* 设置background下的h1 为渐变色 */
-.background h1 {
-    background: linear-gradient(to right, #5f68ece1, #f503c0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 3rem;
-    font-weight: 900;
-    text-align: center;
+.box {
+    background: linear-gradient(#E9F5FE, #D9ECFF);
+}
+
+.card {
+    background: linear-gradient(#D9ECFF, #C6E2FF);
+}
+
+.el-main {
+    background: linear-gradient(#F2F8FC, #E9F5FE);
+}
+
+.box {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    padding: 10px 16px;
+    font-weight: bold;
 }
 </style>
