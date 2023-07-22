@@ -9,7 +9,6 @@
     <div>
         <el-row>
             <el-col>
-                <ClientOnly>
                     <el-table :data="sensorData" :row-class-name="tableRowClassName" style="width: 100%">
                         <el-table-column prop="name" label="传感器" />
                         <el-table-column prop="Temperature" label="温度" />
@@ -18,16 +17,30 @@
                         <el-table-column prop="LightStatus" label="灯光状态" />
                         <el-table-column prop="MotorStatus" label="电机状态" />
                     </el-table>
-                </ClientOnly>
             </el-col>
         </el-row>
+    </div>
+
+    <div>
+        <h1>Shadow Data</h1>
+        {{ shadowData }}
     </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import NavBar from '@/components/NavBar.vue'
 let sensorData = ref([])
 
+let shadowData = ref([])
 // TODO: 从华为云获取数据
+// 暂时的解决 方案是 访问Flask后端获取Shadow数据
+const getShadowData = async () => {
+    // 注意这个是跨域请求
+    const res = await useFetch(()=>'http://127.0.0.1:5000/getShadow')
+    shadowData.value = res.data
+}
+
 
 // 获取随机数据
 const getRandomSensorData = async () => {
@@ -85,7 +98,12 @@ const getRandomSensorData = async () => {
 
 // 每秒刷新一次数据
 setInterval(() => {
-    getSensorData()
+    getRandomSensorData()
+}, 1000)
+
+// 每1秒刷新一次Shadow数据
+setInterval(() => {
+    getShadowData()
 }, 1000)
 
 // 表格行的样式
