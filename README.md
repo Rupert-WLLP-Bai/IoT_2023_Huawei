@@ -60,3 +60,8 @@ onUnmounted(() => {
 </script>
 ```
 
+### 2. 获取华为云的IoTDA的数据
+
+1. 注意使用`华为云账户`获取Token，而不是`华为账户`
+2. 如果使用`华为账户`，则需要创建一个IAM用户，再调用相应的接口获取Token
+3. 将`X-Subject-Token`放入`X-Auth-Token`中，即可获取数据
