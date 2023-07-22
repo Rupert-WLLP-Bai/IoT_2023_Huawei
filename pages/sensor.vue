@@ -12,9 +12,11 @@
                 <ClientOnly>
                     <el-table :data="sensorData" :row-class-name="tableRowClassName" style="width: 100%">
                         <el-table-column prop="name" label="传感器" />
-                        <el-table-column prop="status" label="状态" />
-                        <el-table-column prop="latitute" label="纬度" />
-                        <el-table-column prop="longitute" label="经度" />
+                        <el-table-column prop="Temperature" label="温度" />
+                        <el-table-column prop="Humidity" label="湿度" />
+                        <el-table-column prop="Luminance" label="光照" />
+                        <el-table-column prop="LightStatus" label="灯光状态" />
+                        <el-table-column prop="MotorStatus" label="电机状态" />
                     </el-table>
                 </ClientOnly>
             </el-col>
@@ -23,30 +25,71 @@
 </template>
 
 <script setup>
-// 写一个函数随机生成一组数据
-const randomData = () => {
-    const data = []
-    for (let i = 0; i < 10; i++) {
-        data.push({
-            name: '传感器' + i,
-            status: Math.random() > 0.5 ? '正常' : '异常',
-            latitute: Math.random() * 100,
-            longitute: Math.random() * 100
-        })
-    }
-    return data
+let sensorData = ref([])
+
+// TODO: 从华为云获取数据
+
+// 获取随机数据
+const getRandomSensorData = async () => {
+    // 先用随机数据
+    const data = [
+        {
+            name: '传感器1',
+            Temperature: Math.random() * 100,
+            Humidity: Math.random() * 100,
+            Luminance: Math.random() * 100,
+            LightStatus: Math.random() > 0.5 ? '开' : '关',
+            MotorStatus: Math.random() > 0.5 ? '开' : '关',
+            status: Math.random() > 0.5 ? '正常' : '异常'
+        },
+        {
+            name: '传感器2',
+            Temperature: Math.random() * 100,
+            Humidity: Math.random() * 100,
+            Luminance: Math.random() * 100,
+            LightStatus: Math.random() > 0.5 ? '开' : '关',
+            MotorStatus: Math.random() > 0.5 ? '开' : '关',
+            status: Math.random() > 0.5 ? '正常' : '异常'
+        },
+        {
+            name: '传感器3',
+            Temperature: Math.random() * 100,
+            Humidity: Math.random() * 100,
+            Luminance: Math.random() * 100,
+            LightStatus: Math.random() > 0.5 ? '开' : '关',
+            MotorStatus: Math.random() > 0.5 ? '开' : '关',
+            status: Math.random() > 0.5 ? '正常' : '异常'
+        },
+        {
+            name: '传感器4',
+            Temperature: Math.random() * 100,
+            Humidity: Math.random() * 100,
+            Luminance: Math.random() * 100,
+            LightStatus: Math.random() > 0.5 ? '开' : '关',
+            MotorStatus: Math.random() > 0.5 ? '开' : '关',
+            status: Math.random() > 0.5 ? '正常' : '异常'
+        },
+        {
+            name: '传感器5',
+            Temperature: Math.random() * 100,
+            Humidity: Math.random() * 100,
+            Luminance: Math.random() * 100,
+            LightStatus: Math.random() > 0.5 ? '开' : '关',
+            MotorStatus: Math.random
+                () > 0.5 ? '开' : '关',
+            status: Math.random() > 0.5 ? '正常' : '异常'
+        },
+    ]
+    sensorData.value = data
 }
 
-// 生成一组随机数据
-const sensorData = ref(randomData())
-
-// 每隔一段时间更新一次数据
+// 每秒刷新一次数据
 setInterval(() => {
-    sensorData.value = randomData()
+    getSensorData()
 }, 1000)
 
 // 表格行的样式
-const tableRowClassName = ({ row , rowIndex }) => {
+const tableRowClassName = ({ row, rowIndex }) => {
     if (row.status === '异常') {
         return 'warning-row'
     } else {
