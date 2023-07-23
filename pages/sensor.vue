@@ -27,11 +27,19 @@
 
     <div class="instruction_div">
         <el-button type="primary" @click="sendInstruction()">发送指令</el-button>
+        <el-button type="primary" @click="refreshData()">刷新数据</el-button>
     </div>
 
-    <!-- 当前页面请求的最后更新时间 -->
-    <div style="text-align: center;">
-        <h3>当前页面请求的最后更新时间: {{ new Date() }}</h3>
+    <div class="instruction_div">
+        <!-- 加入一个el-switch 开启的时候显示(自动布控) -->
+        <el-switch
+            v-model="value1"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="自动布控"
+            inactive-text="默认状态"
+            >
+        </el-switch>
     </div>
 
     <div hidden>
@@ -41,11 +49,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import NavBar from '@/components/NavBar.vue'
 let sensorData = ref([])
 let lastUpdateTime = ref(null)
 let shadowData = ref([])
+
 // TODO: 从华为云获取数据
 // 暂时的解决 方案是 访问Flask后端获取Shadow数据
 const getShadowData = async () => {
@@ -57,7 +64,7 @@ const getShadowData = async () => {
     const shadow = shadowData.value['shadow'][0]
 
     const reported = shadow['reported']
-    
+
     const event_time = reported['event_time']   // 最后更新时间
     // 20230721T153956Z 转化为 2023-07-21 15:39:56
     lastUpdateTime.value = event_time.slice(0, 4) + '-' + event_time.slice(4, 6) + '-' + event_time.slice(6, 8) + ' ' + event_time.slice(9, 11) + ':' + event_time.slice(11, 13) + ':' + event_time.slice(13, 15)
@@ -96,10 +103,10 @@ let interval = setInterval(() => {
 // 按下之后发送指令, 并且将按钮的样式变为红色
 const sendInstruction = () => {
     // TODO: 发送指令
-    
+
     // 按钮变为红色
     document.getElementsByClassName('el-button')[0].style.backgroundColor = 'red'
-    
+
     // 将文字显示为正在发送指令...
     document.getElementsByClassName('el-button')[0].innerText = '正在发送指令...'
 
@@ -117,6 +124,10 @@ const sendInstruction = () => {
         }
     }, 1000)
 
+}
+
+const refreshData = () => {
+    getShadowData()
 }
 
 

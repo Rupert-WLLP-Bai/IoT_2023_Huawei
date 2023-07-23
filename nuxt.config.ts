@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@element-plus/nuxt',
+    'nuxt-icon',
   ],
   css: [
     '@/assets/css/main.css',
