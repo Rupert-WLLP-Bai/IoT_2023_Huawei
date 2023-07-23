@@ -33,13 +33,8 @@
 
     <div class="instruction_div">
         <!-- 加入一个el-switch 开启的时候显示(自动布控) -->
-        <el-switch
-            v-model="value1"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            active-text="自动布控"
-            inactive-text="默认状态"
-            >
+        <el-switch v-model="value1" active-color="#13ce66" inactive-color="#ff4949" active-text="自动布控" inactive-text="默认状态"
+            @change="handleSwitch">
         </el-switch>
     </div>
 
@@ -104,15 +99,19 @@ let interval = setInterval(() => {
 // 按下之后发送指令, 并且将按钮的样式变为红色
 const sendInstruction = () => {
     // TODO: 发送指令
-
     // 按钮变为红色
+    ElNotification({
+        title: '这是一个测试按钮',
+        message: '倒计时3秒',
+        type: 'warning'
+    })
     document.getElementsByClassName('el-button')[0].style.backgroundColor = 'red'
 
     // 将文字显示为正在发送指令...
     document.getElementsByClassName('el-button')[0].innerText = '正在发送指令...'
 
     // 显示倒计时
-    let count = 5
+    let count = 3
 
     // 每1秒减少1
     let timer = setInterval(() => {
@@ -124,13 +123,59 @@ const sendInstruction = () => {
             document.getElementsByClassName('el-button')[0].style.backgroundColor = '#409EFF'
         }
     }, 1000)
-
 }
 
 const refreshData = () => {
     getShadowData()
+    ElNotification({
+        title: '刷新数据成功',
+        message: '刷新数据成功',
+        type: 'success'
+    })
 }
 
+const handleSwitch = (value) => {
+    //  value = true 时，自动布控
+    if (value === true) {
+        const res = useFetch(() => 'http://localhost:5000/sendMessage/ON')
+        // 如果res.data中有"error_code"，则说明发送失败, 使用ELNotification提示
+        if (res.data.value['error_code']) {
+            // 将res.data.value Object转化为String 以便于ELNotification显示
+            const str = JSON.stringify(res.data.value)
+            // 显示ELNotification
+            ElNotification({
+                title: '开启自动布控失败',
+                message: str,
+                type: 'error'
+            })
+        } else {
+            ElMessage({
+                message: '已经发送指令, 开始自动布控',
+                type: 'success'
+            })
+        }
+        console.log(res.data.value)
+    } else {
+        const res = useFetch(() => 'http://localhost:5000/sendMessage/OFF')
+        // 如果res.data中有"error_code"，则说明发送失败, 使用ELNotification提示
+        if (res.data.value['error_code']) {
+            // 将res.data.value Object转化为String 以便于ELNotification显示
+            const str = JSON.stringify(res.data.value)
+            // 显示ELMessage
+            ElNotification({
+                title: '关闭自动布控失败',
+                message: str,
+                type: 'error'
+            })
+        } else {
+            ElMessage({
+                message: '已经发送指令, 停止自动布控',
+                type: 'success'
+            })
+        }
+        console.log(res.data.value)
+    }
+}
 
 onMounted(() => {
     getShadowData()
