@@ -1,3 +1,4 @@
+<!-- pages/flv.vue -->
 <template>
     <div>
         <!-- flv拉流测试 -->

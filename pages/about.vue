@@ -1,3 +1,4 @@
+<!-- pages/about.vue -->
 <template>
     <div>
         <h1>关于</h1>

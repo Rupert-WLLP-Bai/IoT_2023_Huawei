@@ -1,3 +1,4 @@
+<!-- pages/camera.vue -->
 <template>
     <div>
         <!-- 从摄像头获取视频-->

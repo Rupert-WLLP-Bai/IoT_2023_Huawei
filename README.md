@@ -9,6 +9,9 @@ npm install
 npm run serve
 ```
 
+## 设计文档
+[设计文档](./doc.md)
+
 ## 问题记录
 
 ### 1. 在Nuxt3中使用mpegts.js

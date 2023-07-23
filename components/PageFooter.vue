@@ -1,3 +1,4 @@
+<!-- components/PageFooter.vue -->
 <template>
     <el-footer style="text-align: center;">
             <img src="https://www.tongji.edu.cn/images/name.png" alt="Tongji University">

@@ -1,3 +1,4 @@
+<!-- pages/sensor.vue -->
 <template>
     <!-- 居中显示大标题 -->
     <div style="text-align: center;">

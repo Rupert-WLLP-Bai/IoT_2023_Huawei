@@ -1,3 +1,4 @@
+<!-- pages/index.vue -->
 <template>
     <el-container>
 
