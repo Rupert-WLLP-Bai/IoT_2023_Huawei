@@ -7,7 +7,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "nuxt test"
+    "test": "nuxt test",
+    "start": "nuxt start"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.5",

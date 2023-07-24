@@ -22,7 +22,7 @@ onMounted(() => {
         flvPlayer = $mpegts.createPlayer({
             type: 'flv',
             isLive: false,
-            url: 'https://vps-cn-south-1-cloud.hwcloudvis.com/work021/live?app=vis&stream=channel_10628627091320000001&project_id=3f70f7e3046f40af84ed44b81d049ab4&key=6d139daf405332d1d4ce0819f94a8df9&t=1690208522'
+            url: 'https://vps-cn-east-3-iec-yz.hwcloudvis.com/work029/live?app=vis&stream=channel_10739276331320000003&project_id=4bf99293674b486d8938f9a890eb84e7&key=2198f56b9771a928495eb57d33749e0b&t=1690289115'
         })
         flvPlayer.attachMediaElement(videoElement)
         flvPlayer.load()

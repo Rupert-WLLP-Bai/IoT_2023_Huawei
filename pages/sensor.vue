@@ -291,7 +291,7 @@ const getImg = async () => {
 // 每20秒刷新一次图片
 let img_interval = setInterval(() => {
     getImg()
-}, 20000)
+}, 5000)
 
 onMounted(() => {
     getShadowData()

@@ -71,11 +71,11 @@
         <el-col :span="6">
           <el-card class="card animate__animated animate__zoomIn">
             <div class="card-header">
-              <h3>加速度检测</h3>
+              <h3>加速度检测/红外检测</h3>
             </div>
 
             <div class="card-body">
-              <p>采集电缆加速度数据,判断是否发生异常。</p>
+              <p>采集电缆加速度数据和红外检测数据，判断是否发生异常。</p>
             </div>
           </el-card>
         </el-col>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="card-body">
-              <p>摄像头实时监测电缆周围情况,识别异常行为。</p>
+              <p>发生疑似偷盗行为时，通过摄像头进行实时监测。</p>
             </div>
           </el-card>
         </el-col>
