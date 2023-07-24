@@ -1,118 +1,151 @@
 <!-- pages/index.vue -->
 <template>
-    <el-container>
+  <el-container style="margin: 0 auto">
 
-        <el-header>
-            <h1 class="animate__animated animate__fadeIn">石油电缆防偷盗系统</h1>
-        </el-header>
+    <el-header>
+      <h1 class="animate__animated animate__fadeIn">石油电缆防偷盗系统</h1>
+    </el-header>
 
-        <el-main>
+    <el-main>
 
-            <el-row :gutter="20">
+      <el-row :gutter="20">
 
-                <el-col :span="12">
+        <el-col :span="12">
 
-                    <el-card class="box animate__animated animate__fadeInUp">
-                        <div class="card-header">
-                            <h2>系统介绍</h2>
-                        </div>
+          <el-card class="box animate__animated animate__fadeInUp">
+            <div class="card-header">
+              <h2>系统介绍</h2>
+            </div>
 
-                        <div class="card-body">
-                            <p>本系统是一个石油电缆防偷盗检测系统。通过加速度传感器和视频监测进行防盗检测,使用华为云IoT平台进行数据传输和设备管理。</p>
-                        </div>
+            <div class="card-body">
+              <p>本系统是一个石油电缆防偷盗检测系统。通过加速度传感器和视频监测进行防盗检测,使用华为云IoT平台进行数据传输和设备管理。</p>
+            </div>
 
-                    </el-card>
+          </el-card>
 
-                </el-col>
+          <el-card class="box animate__animated animate__fadeInUp">
+            <div class="card-header">
+              <h2>实时地图显示</h2>
+            </div>
+            <div class="card-body">
+              <p>使用百度地图API,实时显示电缆位置。(每20秒更新一次)</p>
+            </div>
+          </el-card>
 
-                <el-col :span="12">
+        </el-col>
 
-                    <el-card class="box animate__animated animate__fadeInUp">
-                        <div class="card-header">
-                            <h3>关键技术</h3>
-                        </div>
+        <el-col :span="12">
 
-                        <div class="card-body">
-                            <p>前端:Nuxt3、Element Plus</p>
-                            <p>视频处理:mpegts.js</p>
-                            <p>开发板:BearPi Nano</p>
-                            <p>云服务:华为云IoTDA</p>
-                        </div>
+          <el-card class="box animate__animated animate__fadeInUp">
+            <div class="card-header">
+              <h3>关键技术</h3>
+            </div>
 
-                    </el-card>
+            <div class="card-body d-flex align-items-center">
 
-                </el-col>
+              <div>
+                <p>前端:Nuxt3、Element Plus</p>
+                <p>视频处理: mpegts.js</p>
+              </div>
 
-            </el-row>
+              <div>
+                <p>后端: Python Flask</p>
+                <p>第三方API: 百度地图API</p>
+              </div>
 
-            <el-row :gutter="20" class="services">
+              <div>
+                <p>开发板: BearPi Nano</p>
+                <p>云服务: 华为云IoTDA</p>
+              </div>
 
-                <el-col :span="8">
-                    <el-card class="card animate__animated animate__zoomIn">
-                        <div class="card-header">
-                            <h3>加速度检测</h3>
-                        </div>
+            </div>
 
-                        <div class="card-body">
-                            <p>采集电缆加速度数据,判断是否发生异常。</p>
-                        </div>
-                    </el-card>
-                </el-col>
+          </el-card>
 
-                <el-col :span="8">
-                    <el-card class="card animate__animated animate__zoomIn">
-                        <div class="card-header">
-                            <h3>视频监测</h3>
-                        </div>
+        </el-col>
 
-                        <div class="card-body">
-                            <p>摄像头实时监测电缆周围情况,识别异常行为。</p>
-                        </div>
-                    </el-card>
-                </el-col>
+      </el-row>
 
-                <el-col :span="8">
-                    <el-card class="card animate__animated animate__zoomIn">
-                        <div class="card-header">
-                            <h3>云平台传输</h3>
-                        </div>
+      <el-row :gutter="20" class="services">
 
-                        <div class="card-body">
-                            <p>通过华为云IoT平台可视化监测数据和设备状态。</p>
-                        </div>
-                    </el-card>
-                </el-col>
+        <el-col :span="6">
+          <el-card class="card animate__animated animate__zoomIn">
+            <div class="card-header">
+              <h3>加速度检测</h3>
+            </div>
 
-            </el-row>
+            <div class="card-body">
+              <p>采集电缆加速度数据,判断是否发生异常。</p>
+            </div>
+          </el-card>
+        </el-col>
 
-        </el-main>
+        <el-col :span="6">
+          <el-card class="card animate__animated animate__zoomIn">
+            <div class="card-header">
+              <h3>视频监测</h3>
+            </div>
 
-    </el-container>
+            <div class="card-body">
+              <p>摄像头实时监测电缆周围情况,识别异常行为。</p>
+            </div>
+          </el-card>
+        </el-col>
+
+        <el-col :span="6">
+          <el-card class="card animate__animated animate__zoomIn">
+            <div class="card-header">
+              <h3>云平台传输</h3>
+            </div>
+
+            <div class="card-body">
+              <p>通过华为云IoT平台可视化监测数据和设备状态。</p>
+            </div>
+          </el-card>
+        </el-col>
+
+        <el-col :span="6">
+          <el-card class="card animate__animated animate__zoomIn">
+            <div class="card-header">
+              <h3>邮件提醒</h3>
+            </div>
+
+            <div class="card-body">
+              <p>通过邮件提醒用户电缆状态。</p>
+            </div>
+          </el-card>
+        </el-col>
+
+      </el-row>
+
+    </el-main>
+
+  </el-container>
 </template>
 
 <style>
 .el-header {
-    background: linear-gradient(to right, #5da9e9, #409EFF);
+  background: linear-gradient(#E9F5FE, #D9ECFF);
 }
 
 .box {
-    background: linear-gradient(#E9F5FE, #D9ECFF);
+  background: linear-gradient(#E9F5FE, #D9ECFF);
 }
 
 .card {
-    background: linear-gradient(#D9ECFF, #C6E2FF);
+  background: linear-gradient(#D9ECFF, #C6E2FF);
 }
 
 .el-main {
-    background: linear-gradient(#F2F8FC, #E9F5FE);
+  background: linear-gradient(#F2F8FC, #E9F5FE);
 }
 
 .box {
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
 }
 
 .card-header {
-    padding: 10px 16px;
-    font-weight: bold;
+  padding: 10px 16px;
+  font-weight: bold;
 }
 </style>

@@ -4,10 +4,24 @@
 
 ## 运行
 
+### 前端部分
 ```bash
 npm install
 npm run serve
 ```
+
+### 后端部分
+
+python 环境需要安装 `huaweicloudsdkiam` , `huaweicloudsdkiotda`, `huaweicloudsdkcore` 依赖
+
+```bash
+pip install huaweicloudsdkcore huaweicloudsdkiam huaweicloudsdkiotda
+```
+
+```bash 
+python backend.py
+```
+
 
 ## 设计文档
 [设计文档](./doc.md)

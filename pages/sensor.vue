@@ -8,6 +8,9 @@
     <div style="text-align: center;">
         <h3>最后更新时间: {{ lastUpdateTime }}</h3>
     </div>
+    <div style="text-align: center;">
+        <h3>邮箱提醒状态: {{ mail_available }}</h3>
+    </div>
     <!-- 表格 -->
     <div>
         <el-row>
@@ -29,6 +32,14 @@
     <div class="instruction_div">
         <el-button type="primary" @click="sendInstruction()">发送指令</el-button>
         <el-button type="primary" @click="refreshData()">刷新数据</el-button>
+        <el-button type="primary" @click="resetStatus()">重置电缆状态</el-button>
+        <el-button type="primary" @click="sendTestMail()">发送测试邮件</el-button>
+    </div>
+
+    <div class="instruction_div">
+        <!-- 需要检查邮箱是否符合格式 -->
+        <el-input placeholder="请输入邮箱地址" v-model="emailAddress" style="width: 20%;" clearable>
+        </el-input>
     </div>
 
     <div class="instruction_div">
@@ -38,9 +49,13 @@
         </el-switch>
     </div>
 
-    <div hidden>
-        <h1>测试数据格式如下:</h1>
-        {{ shadowData }}
+    <div class="instruction_div">
+        <h3> 实时地图 (若未显示, 请刷新页面)</h3>
+        <!-- 这部分显示一个地图，显示电缆的位置 -->
+        <!-- 使用百度地图API -->
+        <!-- center的参数使用获取的经纬度 -->
+        <!-- 20秒轮询一次更新当前的位置 --> 
+        <img :src="img_url" alt="图片加载失败" width="80%" height="80%">        
     </div>
 </template>
 
@@ -48,6 +63,12 @@
 let sensorData = ref([])
 let lastUpdateTime = ref(null)
 let shadowData = ref([])
+let mail_available = ref(true)  // 是否可以进行邮件提醒
+let img_url = ref(null) // 图片的url
+let longitude = '0'
+let latitude = '0'
+
+let emailAddress = ref('2052526@tongji.edu.cn') // 邮箱地址
 
 // TODO: 从华为云获取数据
 // 暂时的解决 方案是 访问Flask后端获取Shadow数据
@@ -64,6 +85,11 @@ const getShadowData = async () => {
     const event_time = reported['event_time']   // 最后更新时间
     // 20230721T153956Z 转化为 2023-07-21 15:39:56
     lastUpdateTime.value = event_time.slice(0, 4) + '-' + event_time.slice(4, 6) + '-' + event_time.slice(6, 8) + ' ' + event_time.slice(9, 11) + ':' + event_time.slice(11, 13) + ':' + event_time.slice(13, 15)
+    // 加上8小时时差
+    lastUpdateTime.value = new Date(lastUpdateTime.value).getTime() + 8 * 60 * 60 * 1000
+    // 转化为 YYYY-MM-DD HH:MM:SS
+    lastUpdateTime.value = new Date(lastUpdateTime.value).toLocaleString('chinese', { hour12: false })
+
 
     const properties = reported['properties']
     const Accel_x = properties['Accel_x']
@@ -89,11 +115,31 @@ const getShadowData = async () => {
             status: '正常'
         }
     ]
+
+    // 更新经纬度
+    longitude = Longitude
+    latitude = Latitude
+
+    // 检查电缆状态， 如果为异常并且mail_available为true， 则发送邮件
+    if (Cable_Status === 'Intrude' && mail_available.value === true) {
+        // 发送邮件
+        const subject = '电缆状态异常'
+        const content = '电缆状态异常, 请及时处理, 设备ID: ' + device_id
+        const res = useFetch(() => 'http://localhost:5000/sendEmail/' + emailAddress.value + '/' + subject + '/' + content)
+        ElNotification({
+            title: '电缆状态异常',
+            message: '电缆状态异常, 请及时处理',
+            type: 'error'
+        })
+        mail_available.value = false
+    }
+
+
 }
-// 每1秒刷新一次Shadow数据
+// 每5秒刷新一次Shadow数据
 let interval = setInterval(() => {
     getShadowData()
-}, 1000)
+}, 5000)
 
 
 // 按下之后发送指令, 并且将按钮的样式变为红色
@@ -177,12 +223,84 @@ const handleSwitch = (value) => {
     }
 }
 
+// 重置电缆状态
+const resetStatus = () => {
+    const res = useFetch(() => 'http://localhost:5000/resetStatus/Safe')
+    // 如果res.data中有"error_code"，则说明发送失败, 使用ELNotification提示
+    if (!res.data.value) {
+        ElNotification({
+            title: '重置电缆状态失败',
+            message: '重置电缆状态失败',
+            type: 'error'
+        })
+    }
+    if (res.data.value['error_code']) {
+        // 将res.data.value Object转化为String 以便于ELNotification显示
+        const str = JSON.stringify(res.data.value)
+        // 显示ELMessage
+        ElNotification({
+            title: '重置电缆状态失败',
+            message: str,
+            type: 'error'
+        })
+    } else {
+        ElMessage({
+            message: '已经发送指令, 重置电缆状态',
+            type: 'success'
+        })
+    }
+    console.log(res.data.value)
+    mail_available.value = true
+}
+
+// 发送测试邮件 
+const sendTestMail = async () => {
+    // @app.route('/sendEmail/<email_address>/<subject>/<content>', methods=['GET'])
+    try {
+        const email_address = emailAddress.value
+        const subject = '测试邮件'
+        const content = '这是一封测试邮件'
+        const res = useFetch(() => 'http://localhost:5000/sendEmail/' + email_address + '/' + subject + '/' + content)
+    }
+    catch (err) {
+        console.log(err)
+        ElNotification({
+            title: '发送测试邮件失败',
+            message: err,
+            type: 'error'
+        })
+    }
+    ElNotification({
+        title: '发送测试邮件',
+        message: '发送测试邮件成功',
+        type: 'success'
+    })
+
+}
+
+// 每20秒刷新一次图片
+const getImg = async () => {
+    // 使用Latitute和Longitude获取图片
+    const ak = "o3zv0zIOtX7LtGUNncjyEHoFIfQ1L48w";
+    const url = "http://api.map.baidu.com/staticimage/v2?ak=" + ak + "&width=1024&height=512&center="+longitude + "," + latitude + "&zoom=18" + "&markers=" + longitude + "," + latitude;
+    
+    // 更新img标签的src
+    img_url.value = url
+    console.log(img_url.value)
+}
+// 每20秒刷新一次图片
+let img_interval = setInterval(() => {
+    getImg()
+}, 20000)
+
 onMounted(() => {
     getShadowData()
+    getImg()
 })
 
 onUnmounted(() => {
     clearInterval(interval)
+    clearInterval(img_interval)
 })
 </script>
 

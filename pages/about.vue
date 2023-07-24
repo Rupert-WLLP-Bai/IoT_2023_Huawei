@@ -12,7 +12,7 @@
         <h1>作者信息</h1>
         <div style="width: 50%;">
             <el-row>
-                <el-col :span="12">
+                <el-col :span="13">
                     <el-card>
                         <div style="text-align: center; margin-top: 10px;">
                             <h3>白俊豪</h3>
@@ -21,7 +21,7 @@
                         </div>
                     </el-card>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="13">
                     <el-card>
                         <div style="text-align: center; margin-top: 10px;">
                             <h3>杨文杰</h3>
@@ -30,19 +30,10 @@
                         </div>
                     </el-card>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="13">
                     <el-card>
                         <div style="text-align: center; margin-top: 10px;">
                             <h3>陈小天</h3>
-                            <p>同济大学</p>
-                            <p>2020级本科生</p>
-                        </div>
-                    </el-card>
-                </el-col>
-                <el-col :span="12">
-                    <el-card>
-                        <div style="text-align: center; margin-top: 10px;">
-                            <h3>彭俊翔</h3>
                             <p>同济大学</p>
                             <p>2020级本科生</p>
                         </div>
